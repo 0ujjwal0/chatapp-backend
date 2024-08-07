@@ -64,9 +64,6 @@ const fetchChats = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//@description     Create New Group Chat
-//@route           POST /api/chat/group
-//@access          Protected
 const createGroupChat = expressAsyncHandler(async (req, res) => {
   if (!req.body.users || !req.body.name) {
     return res.status(400).send({ message: "Please Fill all the feilds" });
@@ -101,9 +98,6 @@ const createGroupChat = expressAsyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Rename Group
-// @route   PUT /api/chat/rename
-// @access  Protected
 const renameGroup = expressAsyncHandler(async (req, res) => {
   const { chatId, chatName } = req.body;
 
@@ -127,9 +121,6 @@ const renameGroup = expressAsyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Remove user from Group
-// @route   PUT /api/chat/groupremove
-// @access  Protected
 const removeFromGroup = expressAsyncHandler(async (req, res) => {
   const { chatId, userId } = req.body;
 
@@ -155,9 +146,6 @@ const removeFromGroup = expressAsyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Add user to Group / Leave
-// @route   PUT /api/chat/groupadd
-// @access  Protected
 const addToGroup = expressAsyncHandler(async (req, res) => {
   const { chatId, userId } = req.body;
 
