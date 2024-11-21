@@ -12,10 +12,8 @@ const protect = asyncHandler(async (req, res, next) => {
     try {
       token = req.headers.authorization.split(" ")[1];
 
-     
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    
       req.user = await User.findById(decoded.id).select("-password");
 
       if (!req.user) {
@@ -25,6 +23,12 @@ const protect = asyncHandler(async (req, res, next) => {
 
       next();
     } catch (error) {
+      if (error.name === "TokenExpiredError") {
+        return res
+          .status(401)
+          .json({ message: "Session expired. Please log in again." });
+      }
+
       console.error(error);
       res.status(401);
       throw new Error("Not authorized, token failed");
